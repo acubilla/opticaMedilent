@@ -32,5 +32,38 @@ namespace opticaMedilent.controles
             string _mensaje =
             capaNegocios.spABMpacientes(1, 1, txtDocumento.Text.Trim(), dtpFechaNacimiento.DateTime, txtNombrePaciente.Text.Trim(), txtApellido.Text.Trim(), txtTelefono.Text.Trim(), txtDireccion.Text.Trim(), 1);
         }
+        /// <summary>
+        /// Ocurre cuando el Control de Alta de Pacientes es cargado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void altaPacienteUc_Load(object sender, EventArgs e)
+        {
+            //Inhabilitamos los controles
+            inhabilitarControlesAltaPaciente(true);
+
+        }
+        private void inhabilitarControlesAltaPaciente(bool accion)
+        {
+            if (accion)
+            {
+                txtNombrePaciente.Enabled = false;
+                txtApellido.Enabled = false;
+                txtDocumento.Enabled = false;
+                dtpFechaNacimiento.Enabled = false;
+                txtTelefono.Enabled = false;
+                txtDireccion.Enabled = false;
+            }
+            else
+            {
+                txtNombrePaciente.Enabled = true;
+                txtApellido.Enabled = true;
+                txtDocumento.Enabled = true;
+                dtpFechaNacimiento.Enabled = true;
+                txtTelefono.Enabled = true;
+                txtDireccion.Enabled = true;
+            }
+        }
+
     }
 }
