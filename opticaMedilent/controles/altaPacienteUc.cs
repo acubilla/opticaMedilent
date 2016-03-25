@@ -26,12 +26,6 @@ namespace opticaMedilent.controles
             capaNegocios = new clases.bussinesLayer(_usuarioOracle, _passOracle, _tnsOracle);
             
         }
-
-        private void simpleButton1_Click(object sender, EventArgs e)
-        {
-            string _mensaje =
-            capaNegocios.spABMpacientes(1, 1, txtDocumento.Text.Trim(), dtpFechaNacimiento.DateTime, txtNombrePaciente.Text.Trim(), txtApellido.Text.Trim(), txtTelefono.Text.Trim(), txtDireccion.Text.Trim(), 1);
-        }
         /// <summary>
         /// Ocurre cuando el Control de Alta de Pacientes es cargado
         /// </summary>
@@ -41,8 +35,11 @@ namespace opticaMedilent.controles
         {
             //Inhabilitamos los controles
             inhabilitarControlesAltaPaciente(true);
-
         }
+        /// <summary>
+        /// Metodo que Inhabilita Controles segun el tipo de Accion
+        /// </summary>
+        /// <param name="accion"></param>
         private void inhabilitarControlesAltaPaciente(bool accion)
         {
             if (accion)
