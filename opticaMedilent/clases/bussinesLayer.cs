@@ -112,5 +112,27 @@ namespace opticaMedilent.clases
             }
             return retorno;
         }
+        public DataSet datosPaciente(string PI_PACIENTE_ID)
+        {
+            Oracle.DataAccess.Client.OracleConnection cone = new OracleConnection(this.cadenaDeConeccion);
+            Oracle.DataAccess.Client.OracleDataAdapter adap = new OracleDataAdapter("OPTICA.PKG_OPTICA_MEDILENT.SP_GET_INFO_PACIENTE", cone);
+            adap.SelectCommand.CommandType = CommandType.StoredProcedure;
+            adap.SelectCommand.Parameters.Add("PI_PACIENTE_ID", PI_PACIENTE_ID);
+            adap.SelectCommand.Parameters.Add("PO_CURSOR", OracleDbType.RefCursor);
+            adap.SelectCommand.Parameters["PO_CURSOR"].Direction = ParameterDirection.InputOutput;
+            DataSet datos = new DataSet();
+            try
+            {
+                adap.SelectCommand.Connection.Open();
+                adap.SelectCommand.Connection.Close();
+                adap.Fill(datos);
+            }
+            catch (OracleException e)
+            {
+
+                MessageError(e);
+            }
+            return datos;
+        }
     }
 }
