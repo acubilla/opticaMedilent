@@ -16,6 +16,7 @@ namespace opticaMedilent.controles
         public string _usuarioOracle = string.Empty;
         public string _passOracle = string.Empty;
         public string _tnsOracle = string.Empty;
+        public DataSet dsDatosPaciente = new DataSet();
         clases.bussinesLayer capaNegocios;
         public altaPacienteUc(string usuarioOracle,string passOracle,string tnsOracle)
         {
@@ -35,6 +36,10 @@ namespace opticaMedilent.controles
         {
             //Inhabilitamos los controles
             inhabilitarControlesAltaPaciente(true);
+            //Ocultamos el boton de Busqueda
+            marquePacientes.Visible = false;
+            pacientesLabel.Visible = false;
+            dsDatosPaciente = capaNegocios.datosPaciente(string.Empty);   
         }
         /// <summary>
         /// Metodo que Inhabilita Controles segun el tipo de Accion
@@ -61,6 +66,32 @@ namespace opticaMedilent.controles
                 txtDireccion.Enabled = true;
             }
         }
+        /// <summary>
+        /// Metodo que Crea Nuevo Paciente
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void insertPacienteButton_Click(object sender, EventArgs e)
+        {
+            //Llamamos al Metodo que Habilita los controles
+            inhabilitarControlesAltaPaciente(false);
+        }
 
+        private void updatePacienteButton_Click(object sender, EventArgs e)
+        {
+            PacientesBW.RunWorkerAsync();   
+        }
+
+        private void PacientesBW_DoWork(object sender, DoWorkEventArgs e)
+        {
+            //dsDatosPaciente = capaNegocios.datosPaciente();
+            
+        }
+
+        private void PacientesBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            marquePacientes.Visible=false;
+            pacientesLabel.Visible = false;
+        }
     }
 }
